@@ -1,0 +1,14 @@
+{
+    "telemetry.machineId": "22f57006c133d92e7de8e9e10fb8f76d836c994ae4c0f0a5778d8f27f40e763a",
+    "openedPathsList": {
+        "workspaces3": [
+            {
+                "id": "9c0ff7c6f68970f2cdcd95d9a8c79388",
+                "configURIPath": "file:///c%3A/tmp/rockstars/.metadata/codemix.code-workspace"
+            }
+        ],
+        "files2": []
+    },
+    "theme": "vs-dark",
+    "themeBackground": "#221a0f"
+}
