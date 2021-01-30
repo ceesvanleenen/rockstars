@@ -1,6 +1,7 @@
 package com.example.rockstars.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -67,7 +68,15 @@ public class RockstarsController {
 
 	@PostMapping("/")
 	public void addRockstar(@RequestBody Song song) {
-		rockstarsService.saveRockstar(song);		
+		List<Song> currentList = rockstarsService.getAllRockstars();
+
+		for(Song songFromList : currentList) {
+			if (song.getName().equalsIgnoreCase(songFromList.getName())) {
+				System.out.println("The name of this band already exist");
+			} else {
+				rockstarsService.saveRockstar(song);						
+			}
+		}		
 	}
 
 	@PostMapping("/addList")
