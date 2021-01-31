@@ -1,7 +1,6 @@
 package com.example.rockstars.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -27,11 +26,22 @@ public class RockstarsController {
 	@Autowired
 	RockstarsService rockstarsService;
 
+	/**
+	 * Methode getAllRockstars() haalt alle rockstars op uit de database
+	 *  
+	 * @return List<Song> een lijst van Song records.
+	 */
 	@GetMapping("")
 	public List<Song> getAllRockstars() {
 		return rockstarsService.getAllRockstars();
 	}
 	
+	/**
+	 * Methode getRockstarById haalt, o.b.v. een id, één Song record op.
+	 * 
+	 * @param id Integer id 
+	 * @return ResponseEntity<Song> Response object van het type <Song>
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Song> getRockstarById(@PathVariable Integer id) {
 		try {
@@ -42,6 +52,12 @@ public class RockstarsController {
 		}
 	}
 
+	/**
+	 * Methode getGenre haalt o.b.v. het type genre, en lijst op van Song objecten die hier aan voldoen.
+	 * 
+	 * @param genre String genre
+	 * @return List<Song> een lijst van Song records.
+	 */
 	@GetMapping("/genre/{genre}")
 	public List<Song> getGenre(@PathVariable String genre) {
 		List<Song> newList = new ArrayList<Song>();
@@ -54,6 +70,12 @@ public class RockstarsController {
 		return newList; 
 	}
 
+	/**
+	 * Methode getSongsBefore2016() haalt een lijst op van songs die vóór 2016 uitgebracht zijn.
+	 * 
+	 * @return List<Song> een lijst van Song records.
+	 */
+	
 	@GetMapping("/before2016")
 	public List<Song> getSongsBefore2016() {
 		List<Song> newList = new ArrayList<Song>();
@@ -66,24 +88,42 @@ public class RockstarsController {
 		return newList; 
 	}
 
+	/**
+	 * Methode addRockstar() voegt een Song object toe aan de database.
+	 * Mocht de naam van de band al bestaan, dan verschijnt er een melding in de log en wordt het record niet opgeslagen.
+	 * 
+	 * @param song Song het op te slagen record.
+	 */
 	@PostMapping("/")
 	public void addRockstar(@RequestBody Song song) {
 		List<Song> currentList = rockstarsService.getAllRockstars();
 
 		for(Song songFromList : currentList) {
 			if (song.getName().equalsIgnoreCase(songFromList.getName())) {
-				System.out.println("The name of this band already exist");
+				System.out.println("De naam van deze band bestaat al. \nHet record wordt niet opgeslagen.");
 			} else {
 				rockstarsService.saveRockstar(song);						
 			}
 		}		
 	}
 
+	/**
+	 * Methode addRockstarList slaat een lijst op van Songs.
+	 * 
+	 * @param songs List<Song> lijst van songs.
+	 */
 	@PostMapping("/addList")
 	public void addRockstarList(@RequestBody List<Song> songs) {
 		rockstarsService.batchAuthors(songs);		
 	}
 
+	/**
+	 * Methode updateRockstar() wijzigt een Song o.b.v. het id.
+	 * 
+	 * @param song Song te wijzigen record
+	 * @param id Integer id
+	 * @return ResponseEntity<Song>
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateRockstar(@RequestBody Song song, @PathVariable Integer id) {
 		try {
@@ -91,12 +131,17 @@ public class RockstarsController {
 			Song newSong = rockstarsService.getRockstar(id);
 			song.setId(id);
 			rockstarsService.saveRockstar(song);
+			
 			return new ResponseEntity<Song>(song, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
 			return new ResponseEntity<Song>(HttpStatus.NOT_FOUND);
 		}
 	}
 
+	/**
+	 * Methode deleteRockstar() verwijdert een record o.b.v. het id.	 * 
+	 * @param id Integer id
+	 */
 	@DeleteMapping("/{id}")
 	public void deleteRockstar(@PathVariable Integer id) {
 		rockstarsService.deleteRockstar(id);

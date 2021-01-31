@@ -22,7 +22,6 @@ public class RockstarsService {
  	public void saveRockstar(Song song) {
  		rockstarsRepository.save(song);
 	}
-
  	
 	public Song getRockstar(Integer id) {
 		return rockstarsRepository.findById(id).get();
@@ -37,7 +36,3 @@ public class RockstarsService {
 	}		
 	
 }
-
-
-
-
