@@ -1,9 +1,7 @@
 package com.example.rockstars;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
