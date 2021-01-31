@@ -114,7 +114,7 @@ public class RockstarsController {
 	 */
 	@PostMapping("/addList")
 	public void addRockstarList(@RequestBody List<Song> songs) {
-		rockstarsService.batchAuthors(songs);		
+		rockstarsService.addCompleteListOfSongs(songs);		
 	}
 
 	/**

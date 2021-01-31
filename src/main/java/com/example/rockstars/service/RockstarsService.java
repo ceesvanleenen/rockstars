@@ -31,7 +31,7 @@ public class RockstarsService {
 		rockstarsRepository.deleteById(id);		
 	}
 
-	public void batchAuthors(List<Song> songs) {		
+	public void addCompleteListOfSongs(List<Song> songs) {		
 		rockstarsRepository.saveAll(songs);
 	}		
 	
