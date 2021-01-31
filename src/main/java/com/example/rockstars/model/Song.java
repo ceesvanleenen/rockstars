@@ -38,6 +38,10 @@ public class Song {
 		this.album = album;
 	}
 
+	/**
+	 * Annotatie: @GeneratedValue heb ik tijdelijk uitgecommentarieerd om het complete json bestand in te kunnen laden.
+	 * Om een single record toe te voegen heb ik deze weer 'aan' gezet waardoor een id automatisch gegenereerd wordt.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
