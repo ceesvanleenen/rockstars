@@ -96,15 +96,19 @@ public class RockstarsController {
 	 */
 	@PostMapping("/")
 	public void addRockstar(@RequestBody Song song) {
-		List<Song> currentList = rockstarsService.getAllRockstars();
-
-		for(Song songFromList : currentList) {
+ 
+		boolean present = false;
+		
+		for(Song songFromList : rockstarsService.getAllRockstars()) {
 			if (song.getName().equalsIgnoreCase(songFromList.getName())) {
-				System.out.println("De naam van deze band bestaat al. \nHet record wordt niet opgeslagen.");
-			} else {
-				rockstarsService.saveRockstar(song);						
-			}
+				System.out.println("De naam van deze band bestaat al. Het record wordt niet opgeslagen.");
+				present = true;
+			} 
 		}		
+
+		if(!present) {
+			rockstarsService.saveRockstar(song);						
+		}
 	}
 
 	/**
